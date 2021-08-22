@@ -37,6 +37,10 @@ const ExpenseForm = (props) => {
     // });
   };
 
+  const close = (event) => {
+    props.formStatus();
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -85,6 +89,9 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className='new-expense__actions'>
+        <button type='button' onClick={close}>
+          Cancel
+        </button>
         <button type='submit'>Add Expense</button>
       </div>
     </form>
