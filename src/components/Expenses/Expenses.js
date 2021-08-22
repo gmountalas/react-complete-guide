@@ -11,21 +11,27 @@ function Expenses(props) {
     setSelectedOption(option);
   };
 
+  const filteredExpenses = props.expenses.filter((expense) => {
+    return Number.parseInt(selectedOption) === expense.date.getFullYear();
+  });
+
+  let expensesContent = <p>No expenses found.</p>;
+
+  if (filteredExpenses.length > 0) {
+    expensesContent = filteredExpenses.map((expense) => (
+      <ExpenseItem
+        key={expense.id}
+        title={expense.title}
+        amount={expense.amount}
+        date={expense.date}
+      />
+    ));
+  }
+
   return (
     <Card className='expenses'>
       <ExpensesFilter selected={selectedOption} selectOption={selectHandler} />
-      {props.expenses
-        .filter(
-          (expense) => expense.date.getFullYear().toString() === selectedOption
-        )
-        .map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+      {expensesContent}
     </Card>
   );
 }
